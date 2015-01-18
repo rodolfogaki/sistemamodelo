@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h:form>
+                <p:messages showDetail="false"/>
+                <p:panel header="Cadastro de Pessoa Jurídica">
+                    <p:panelGrid columns="2">
+                        Razão:     <p:inputText value="#{pessoaJuridicaControle.pessoaJuridica.nome}" id="nome" size="50" 
+                                           required="true" requiredMessage="O nome é obrigatório!"/>
+                        Fantasia:  <p:inputText value="#{pessoaJuridicaControle.pessoaJuridica.nomeFantasia}" id="nomeFantasia" size="50" 
+                                           required="true" requiredMessage="O nome é obrigatório!"/>
+                      
+                        CNPJ:      <p:inputText value="#{pessoaJuridicaControle.pessoaJuridica.cnpj}" id="CNPJ" size="30" 
+                                           required="true" requiredMessage="O cpf é obrigatório!"/>
+                        IE:        <p:inputText value="#{pessoaJuridicaControle.pessoaJuridica.ie}" id="IE" size="30" 
+                                           required="true" requiredMessage="O rg é obrigatório!"/>
+                        Endereco: <p:inputText value="#{pessoaJuridicaControle.pessoaJuridica.endereco}" id="Endereco" size="60"/>
+                        Número:   <p:inputText value="#{pessoaJuridicaControle.pessoaJuridica.numero}" id="numero" size="20" />                       
+                        Cidade:   <p:autoComplete value="#{pessoaJuridicaControle.pessoaJuridica.cidade}" id="cidade" size="50" 
+                                                    completeMethod="#{pessoaJuridicaControle.completaCidade}"
+                                                    converter="#{pessoaJuridicaControle.converterCidade}"
+                                                    var="p"
+                                                    itemLabel="#{p.nome} - #{p.estado}"
+                                                    itemValue="#{p}"
+                                                    forceSelection="true"
+                                                    required="true" requiredMessage="A cidade é obrigatória!"/>
+
+                        Telefone: <p:inputText value="#{pessoaJuridicaControle.pessoaJuridica.telefone}" id="telefone" size="45"/>
+                        Celular:  <p:inputText value="#{pessoaJuridicaControle.pessoaJuridica.celular}" id="celular" size="45"  />
+
+                    </p:panelGrid>
+                    <p:separator/>
+                    <p:commandButton value="Salvar" action="pessoajuridicalistar" 
+                                     actionListener="#{pessoaJuridicaControle.salvar()}" ajax="false" icon="ui-icon-disk"/>
+                    <p:commandButton value="Voltar" immediate="true" action="pessoajuridicalistar" ajax="false" icon="ui-icon-circle-arrow-w"/>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Sistema Modelo</title>
+        <style type="text/css">
+            .ui-widget {
+                font-size: 75%;
+            }
+            .wijmo-wijmenu { 
+                border: 0px; width: 240px; padding: 1px;
+            }
+            .wijmo-wijmenu-breadcrumb, .wijmo-wijmenu-footer{
+
+                margin-bottom: 10%;
+            }
+            
+            .ui-layout-pane-north {
+                visibility: hidden !important;
+            }
+            
+            .ui-panelgrid {  
+                border: none !important; 
+            }  
+            
+            
+            .ui-datagrid-row{ 
+              border: none; 
+            } 
+
+            .ui-datagrid-data{ 
+              border: none; 
+            } 
+
+            .ui-datagrid-column{ 
+              border: none; 
+            } 
+
+            .ui-datagrid{ 
+              border: none; 
+            } 
+
+            
+        </style>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+           <!-- <p:layoutUnit position="north" resizable="true" closable="false" size="50" collapsible="false" style="text-align: center"> 
+               
+                
+                
+                <h:form>
+                    <p:toolbar>  
+                        <p:toolbarGroup align="left">  
+                            <p:commandButton type="button" value="  Sistema Modelo  " actionListener="#" />  
+                        </p:toolbarGroup>  
+                        <p:toolbarGroup align="right">                         
+                            <p:menuButton value="Opções">  
+                                    <p:menuitem value="Alterar Senha" action="/usuario/usuariosenha" icon="ui-icon-key"/>  
+                                    <p:menuitem value="Sair"          url="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" icon="ui-icon-power"/>  
+                            </p:menuButton>
+                        
+                        </p:toolbarGroup>  
+                    </p:toolbar> 
+                </h:form>  
+            </p:layoutUnit> 
+            <p:layoutUnit position="south" size="30" style="text-align: center">
+                <h:outputText value="Desenvolvido por Pós-graduação 2014"/>
+            </p:layoutUnit> -->
+            <p:layoutUnit position="west" size="180" header="Menu" resizable="false" closable="false" collapsible="true">
+                <h:form>
+                    <p:panelMenu style="width: 170px">
+                        <p:submenu label="Cadastros">
+                            <p:menuitem value="Estado" action="/estado/estadolistar" ajax="false"/>
+                            <p:menuitem value="Cidade" action="/cidade/cidadelistar" ajax="false"/>
+                            <p:menuitem value="Grupo Produto" action="/grupoproduto/grupoprodutolistar" ajax="false"/>
+                            <p:menuitem value="Produto" action="/produto/produtolistar" ajax="false"/>
+                            <p:submenu label="Pessoa">
+                                <p:menuitem value="Fisica" action="/pessoafisica/pessoafisicalistar" ajax="false"/>
+                                <p:menuitem value="Jurídica" action="/pessoajuridica/pessoajuridicalistar" ajax="false"/>
+                                <p:menuitem value="Pessoa" action="/pessoa/pessoalistar" ajax="false"/>
+                            </p:submenu>
+                        </p:submenu>
+                        <p:submenu label="Movimentos">
+                            <p:menuitem value="Venda" action="/venda/vendalistar" ajax="false"/>
+                            <p:menuitem value="Compra" action="/compra/compralistar" ajax="false"/>
+                        </p:submenu>
+                        <p:submenu label="Relatórios">
+                            <p:menuitem value="Vendas por período" action="#" ajax="false"/>
+                        </p:submenu>
+                        <p:submenu label="Administrativo">
+                             <p:menuitem value="Cadastro de usuário" action="/usuario/usuariolistar" ajax="false"/>
+                        </p:submenu>
+                    </p:panelMenu>
+                </h:form>    
+            </p:layoutUnit>
+            <p:layoutUnit position="center">
+                <ui:insert id="corpo" name="body">Seja bem vindo!</ui:insert>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>
+

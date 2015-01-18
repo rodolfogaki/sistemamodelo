@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h:form>
+                <p:messages showDetail="false"/>
+                <p:panel header="Cadastro de Estado">
+                    <p:panelGrid columns="2" style="border: none">
+                        Nome: <p:inputText value="#{estadoControle.estado.nome}" id="nome" size="50" 
+                                           required="true" requiredMessage="O nome é obrigatório!"/>
+                        Sigla: <p:inputText value="#{estadoControle.estado.sigla}" id="sigla" size="10" 
+                                            required="true" requiredMessage="A sigla é obrigatória!"/>
+                    </p:panelGrid>
+                    <p:separator/>
+                    <p:commandButton value="Salvar" action="estadolistar" 
+                                     actionListener="#{estadoControle.salvar()}" ajax="false" icon="ui-icon-disk"/>
+                    <p:commandButton value="Voltar" immediate="true" action="estadolistar" ajax="false" icon="ui-icon-circle-arrow-w"/>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

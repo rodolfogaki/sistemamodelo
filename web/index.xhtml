@@ -1,0 +1,102 @@
+﻿<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Sistema Modelo</title>
+        <style type="text/css">
+            .ui-widget{
+                border: 0px;
+                font-size: 70%;
+            }
+            .ui-widget-content{
+                color: black;
+                background: ghostwhite;
+            }
+            .ui-menuitem-text{
+                color: black;
+            }
+            .ui-panelmenu-header{
+                font-family:arial, sans-serif;
+                font-size:13px;
+                height: 40px;
+            }
+            .ui-panelmenu-header a{
+                padding: 1.0em 1.0em 1.0em 2.2em !important; 
+            }
+        </style>
+    </h:head>
+    <h:body >
+        <p:layout fullPage="true" >
+            <!-- <p:layoutUnit position="north" resizable="true" closable="false" size="90" collapsible="false" style="text-align: center"> 
+                <h:outputText value="Sistema Modelo - UNIPAR" style="font-size: xx-large"/>
+            </p:layoutUnit> 
+            <p:layoutUnit position="south" size="30" style="text-align: center">
+                <h:outputText value="Desenvolvido por Pós-graduação 2014"/>
+            </p:layoutUnit>-->
+            <p:layoutUnit position="west" size="250" header="Menu" resizable="false" closable="false" collapsible="true" >
+                <br />
+                <img src="../images/bemviver.jpg" width="242px" height="100px" align="center"/>
+                <p:commandButton value="Filial: Matriz" style="width: 99.5%; text-align: left;" />
+                <p:commandButton value="Usuário: Rogério de Souza" style="width: 99.5%; text-align: left;" />
+                <br />
+                <br />
+                <h:form>
+                    <p:panelMenu style="width: 100%" >
+                          <p:submenu label="Cadastros">
+                            <p:menuitem value="Estado" action="/estado/estadolistar" ajax="false"/>
+                            <p:menuitem value="Cidade" action="/cidade/cidadelistar" ajax="false"/>
+                            <p:menuitem value="Grupo Produto" action="/grupoproduto/grupoprodutolistar" ajax="false"/>
+                            <p:menuitem value="Produto" action="/produto/produtolistar" ajax="false"/>
+                            <p:submenu label="Pessoa">
+                                <p:menuitem value="Fisica" action="/pessoafisica/pessoafisicalistar" ajax="false"/>
+                                <p:menuitem value="Jurídica" action="/pessoajuridica/pessoajuridicalistar" ajax="false"/>
+                                <p:menuitem value="Pessoa" action="/pessoa/pessoalistar" ajax="false"/>
+                            </p:submenu>
+                        </p:submenu>
+                        <p:submenu label="Movimentos">
+                            <p:menuitem value="Venda" action="/venda/vendalistar" ajax="false"/>
+                            <p:menuitem value="Contas Receber" action="/contasreceber/contasreceberlistar" ajax="false"/>
+                            <p:menuitem value="Compra" action="/compra/compralistar" ajax="false"/>
+                            <p:menuitem value="Contas a Pagar" action="/contasapagar/contasapagarlistar" ajax="false"/>
+                        </p:submenu>
+                        <p:submenu label="Relatórios">
+                            <p:menuitem value="Vendas por período" action="#" ajax="false"/>
+                            <p:menuitem value="Vendas" action="/relatorios/relvenda" ajax="false"/>
+                        </p:submenu>
+                        <p:submenu label="Administrativo">
+                             <p:menuitem value="Cadastro de usuário" action="/usuario/usuariolistar" ajax="false"/>
+                        </p:submenu>
+                    </p:panelMenu>
+                    <p:separator/>
+                  
+                    <h:outputLink value="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout">
+                        <h:outputText value="Sair"/>
+                    </h:outputLink>
+                
+                </h:form>
+                <br/>
+                
+            </p:layoutUnit>
+            <p:layoutUnit position="center" >
+                <p:breadCrumb style="margin-top: -2px; ">
+                    <p:menuitem value="Home" url="../" />
+                </p:breadCrumb>
+                <div >
+                    <ui:insert id="corpo" name="body" >Seja bem vindo!</ui:insert>    
+                </div>
+            </p:layoutUnit>            
+            <!--
+            <p:layoutUnit position="center" style="background: #fff !important;">
+                <div style="background: #fff !important; width: 100%; height: 100%;" >
+                    <ui:insert id="corpo" name="body" >Seja bem vindo!</ui:insert>    
+                </div>
+            </p:layoutUnit>
+            -->
+        </p:layout>
+    </h:body>
+</html>
+

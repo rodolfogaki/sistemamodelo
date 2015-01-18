@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h:form>
+                <p:panel header="Lista de compras">
+                    <p:dataTable value="#{compraControle.listaCompras()}" 
+                                 var="c" 
+                                 emptyMessage="Nenhuma compra cadastrada!" 
+                                 paginator="true" rows="10"
+                                 id="tabela"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="10,25,50,100"
+                                 >
+                        <p:column headerText="Data" filterBy="#{c.dataCompra}" width="100">
+                            <h:outputText value="#{c.dataCompra}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Pessoa" filterBy="#{c.pessoa.nome}">
+                            <h:outputText value="#{c.pessoa.nome}"/>
+                        </p:column>
+                        <p:column headerText="Total" filterBy="#{c.valorTotal}"  width="100">
+                            <h:outputText value="#{c.valorTotal}"/>
+                        </p:column>
+                        <p:column headerText="Operações" width="90">
+                            <p:commandButton title="Editar" icon="ui-icon-pencil" action="compraeditar" actionListener="#{compraControle.editar}" ajax="false">
+                                <f:setPropertyActionListener value="#{c}" target="#{compraControle.compra}"/>
+                            </p:commandButton>
+                            <p:commandButton title="Excluir" icon="ui-icon-closethick" action="compralistar" actionListener="#{compraControle.excluir}" ajax="false">
+                                <f:attribute value="#{c}" name="cp"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                    <p:separator/>
+                    <p:commandButton value="Voltar" action="/index" ajax="false" icon="ui-icon-circle-arrow-w"/>
+                    <p:commandButton value="Incluir nova compra" action="compraeditar" 
+                                     actionListener="#{compraControle.novo()}" ajax="false" icon="ui-icon-circle-plus"/>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

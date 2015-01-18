@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<b:beans xmlns="http://www.springframework.org/schema/security"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:b="http://www.springframework.org/schema/beans"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security
+						http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+    <http auto-config="true" access-denied-page="/negado.xhtml">
+        
+        
+        <form-login login-page="/login.xhtml" authentication-failure-url="/login.xhtml?error=true" />
+        <logout logout-success-url="/login.xhtml" />       
+        <intercept-url pattern="/index.xhtml" access="ROLE_USER" />       
+
+    </http>
+
+    <authentication-manager>
+        <authentication-provider>
+          <password-encoder hash="md5"/>
+            <jdbc-user-service data-source-ref="dataSource"
+                                           users-by-username-query="SELECT login, senha, ativo FROM pessoa WHERE login=?"
+                                           authorities-by-username-query="SELECT v.login AS username, auto.nome AS authority 
+                                                                            FROM pessoa_autorizacao a 
+                                                                            inner join pessoa v on v.id = a.pessoa_id 
+                                                                            inner join autorizacao auto on a.autorizacoes_id = auto.id WHERE v.login=?" />
+        </authentication-provider>
+    </authentication-manager>
+
+    <b:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <b:property name="url" value="jdbc:postgresql://localhost:5432/sistemamodelo" />
+        <b:property name="driverClassName" value="org.postgresql.Driver" />
+        <b:property name="username" value="postgres" />
+        <b:property name="password" value="admin" />
+    </b:bean>
+</b:beans>

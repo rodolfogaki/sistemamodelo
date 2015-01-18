@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h:form>
+                <p:panel header="Lista de Pessoas Juridicas">
+                    <p:dataTable value="#{pessoaJuridicaControle.listar()}" 
+                                 var="p" 
+                                 emptyMessage="Nenhuma pessoa jurídica cadastrada!" 
+                                 paginator="true" rows="10"
+                                 id="tabela"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="10,25,50,100"
+                                 >
+                        <p:column headerText="Razao Social" filterBy="#{p.nome}">
+                            <h:outputText value="#{p.nome}"/>
+                        </p:column>
+                        <p:column headerText="Telefone" filterBy="#{p.telefone}" width="20">
+                            <h:outputText value="#{p.telefone}"/>
+                        </p:column>
+                        <p:column headerText="Celular" filterBy="#{p.celular}" width="20">
+                            <h:outputText value="#{p.celular}"/>
+                        </p:column>
+                        <p:column headerText="CNPJ" filterBy="#{p.cnpj}" width="130">
+                            <h:outputText value="#{p.cnpj}"/>
+                        </p:column>
+                        <p:column headerText="IE" filterBy="#{p.ie}" width="110">
+                            <h:outputText value="#{p.ie}"/>
+                        </p:column>
+                        <p:column headerText="Operações" width="90">
+                            <p:commandButton title="Editar" icon="ui-icon-pencil" action="pessoajuridicaeditar" ajax="false">
+                                <f:setPropertyActionListener value="#{p}" target="#{pessoaJuridicaControle.pessoaJuridica}"/>
+                            </p:commandButton>
+                            <p:commandButton title="Excluir" icon="ui-icon-closethick" action="pessoajuridicalistar" actionListener="#{pessoaJuridicaControle.excluir}" ajax="false" onclick="if(!confirm('Deseja excluir este registro?')) return false;">
+                                <f:attribute value="#{p}" name="pes"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                    <p:separator/>
+                    <p:commandButton value="Voltar" action="/index" ajax="false" icon="ui-icon-circle-arrow-w"/>
+                    <p:commandButton value="Incluir nova pessoa jurídica" action="pessoajuridicaeditar" 
+                                     actionListener="#{pessoaJuridicaControle.novo()}" ajax="false" icon="ui-icon-circle-plus"/>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

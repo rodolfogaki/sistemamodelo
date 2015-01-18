@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h:form id="forma" prependId="false">
+                <p:panel header="Lista de Vendas">
+                    <p:dataTable value="#{vendaControle.listaVendas()}" 
+                                 var="v" 
+                                 emptyMessage="Nenhum venda cadastrada!" 
+                                 paginator="true" rows="10"
+                                 id="tabela"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="10,25,50,100"
+                                 >
+
+                        <f:facet name="header">  
+                            <p:outputPanel>  
+                                <h:outputText value="Filtro: " />  
+                                <p:inputText id="globalFilter" value="#{vendaControle.filtro}" size="70"/> 
+                                <p:commandButton id="filtro" actionListener="#{vendaControle.consultaVenda}"  value="Pesquisar" ajax="false"/>
+                            </p:outputPanel>  
+                        </f:facet>  
+                        
+                        <p:column headerText="Data" filterBy="#{v.dataVenda}" width="100">
+                            <h:outputText value="#{v.dataVenda}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Cliente" filterBy="#{v.pessoa.nome}" width="500">
+                            <h:outputText value="#{v.pessoa.nome}"/>
+                        </p:column>
+                        <p:column headerText="Total" filterBy="#{v.valorTotal}" width="100">
+                            <h:outputText value="#{v.valorTotal}"/>
+                        </p:column>
+                        <p:column headerText="Operações" width="90">
+                            <p:commandButton title="Editar" icon="ui-icon-pencil" action="vendaeditar" actionListener="#{vendaControle.editar}" ajax="false">
+                                <!--<f:attribute value="#{v}" name="ve"/> -->
+                                <f:setPropertyActionListener value="#{v}" target="#{vendaControle.venda}"/>
+                            </p:commandButton>
+                            <p:commandButton title="Excluir" icon="ui-icon-closethick" action="vendalistar" actionListener="#{vendaControle.excluir}" ajax="false">
+                                <f:attribute value="#{v}" name="ve"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                    <p:separator/>
+                    <p:commandButton value="Voltar" action="/index" ajax="false" icon="ui-icon-circle-arrow-w"/>
+                    <p:commandButton value="Incluir nova venda" action="vendaeditar" 
+                                     actionListener="#{vendaControle.novo()}" ajax="false" icon="ui-icon-circle-plus"/>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

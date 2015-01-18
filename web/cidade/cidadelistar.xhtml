@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h:form>
+                <p:panel header="Lista de Cidades">
+                    <p:dataTable value="#{cidadeControle.listaCidades()}" 
+                                 var="c" 
+                                 emptyMessage="Nenhum cidade cadastrado!" 
+                                 paginator="true" rows="10"
+                                 id="tabela"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="10,25,50,100"
+                                 >
+                        <p:column headerText="Nome" filterBy="#{c.nome}">
+                            <h:outputText value="#{c.nome}"/>
+                        </p:column>
+                        <p:column headerText="Estado" filterBy="#{c.estado.nome}">
+                            <h:outputText value="#{c.estado.nome}"/>
+                        </p:column>
+                        <p:column headerText="Operações" width="90">
+                            <p:commandButton title="Editar" icon="ui-icon-pencil" action="cidadeeditar" ajax="false">
+                                <f:attribute value="#{c}" name="cid"/>
+                            </p:commandButton>
+                            <p:commandButton title="Excluir" icon="ui-icon-closethick" action="cidadelistar" actionListener="#{cidadeControle.excluir}" ajax="false" onclick="if(!confirm('Deseja excluir este registro?')) return false;">
+                                <f:attribute value="#{c}" name="cid"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                    <p:separator/>
+                    <p:commandButton value="Voltar" action="/index" ajax="false" icon="ui-icon-circle-arrow-w"/>
+                    <p:commandButton value="Incluir nova cidade" action="cidadeeditar" 
+                                     actionListener="#{cidadeControle.novo()}" ajax="false" icon="ui-icon-circle-plus"/>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

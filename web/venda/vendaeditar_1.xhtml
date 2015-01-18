@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h:form id="formulario">
+                <p:messages autoUpdate="true" showDetail="true"/>
+                <p:panel header="Movimento de Venda">
+                    <p:panelGrid columns="2">
+                        Data: <p:calendar value="#{vendaControle.venda.dataVenda}" id="data" pattern="dd/MM/yyyy" locale="pt_BR"
+                                          required="true" requiredMessage="A data é obrigatório!"/>
+                        Pessoa: <p:autoComplete value="#{vendaControle.venda.pessoa}" id="pessoa"  
+                                                completeMethod="#{vendaControle.completaPessoa}"
+                                                converter="#{vendaControle.converterPessoa}"
+                                                var="e"
+                                                itemLabel="#{e.nome}"
+                                                itemValue="#{e}"
+                                                forceSelection="true"
+                                                required="true" requiredMessage="A pessoa é obrigatória!"/>
+                        Desconto: <p:inputText value="#{vendaControle.venda.desconto}" id="descontoVenda" >
+                            <p:ajax event="keyup" update="total" />
+                        </p:inputText>
+                        Total: <p:inputText value="#{vendaControle.venda.valorTotal}" id="total" readonly="true"/>
+                    </p:panelGrid>
+                    <p:separator/>
+                    <p:panel header="Itens da venda" id="painel">
+                        <p:panelGrid columns="2">
+                            Produto:<p:autoComplete value="#{vendaControle.itemVenda.produto}" id="produto"  
+                                                    completeMethod="#{vendaControle.completaProduto}"
+                                                    converter="#{vendaControle.converterProduto}"
+                                                    var="e"
+                                                    itemLabel="#{e.nome}"
+                                                    itemValue="#{e}"
+                                                    forceSelection="true"
+                                                    >
+                                <p:ajax event="itemSelect" update="valor" listener="#{vendaControle.setaValorProduto()}"/> 
+                            </p:autoComplete>
+                            Valor:<p:inputText value="#{vendaControle.itemVenda.valor}" id="valor"/>
+                            Quantidade:<p:inputText value="#{vendaControle.itemVenda.quantidade}" id="quantidade"/>
+                            Desconto:<p:inputText value="#{vendaControle.itemVenda.desconto}" id="desconto"/>
+                        </p:panelGrid>
+                        <br/>
+                        <p:commandButton value="Adicionar" actionListener="#{vendaControle.addItem()}" ajax="true" update="total painel" />
+                        <p:separator/>
+                        <p:dataTable value="#{vendaControle.venda.itemVendas}" var="iv">
+                            <p:column headerText="Produto">
+                                <h:outputText value="#{iv.produto.nome}"/>
+                            </p:column>
+                            <p:column headerText="Valor">
+                                <h:outputText value="#{iv.valor}"/>
+                            </p:column>
+                            <p:column headerText="Quantidade">
+                                <h:outputText value="#{iv.quantidade}"/>
+                            </p:column>
+                            <p:column headerText="Desconto">
+                                <h:outputText value="#{iv.desconto}"/>
+                            </p:column>
+                            <p:column headerText="Sub Total">
+                                <h:outputText value="#{iv.subTotal}"/>
+                            </p:column>
+                            <p:column headerText="Remover">
+                                <p:commandButton value="Remover" actionListener="#{vendaControle.removeItem}" ajax="false" action="vendaeditar">
+                                    <f:attribute value="#{iv}" name="item"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                    <p:separator/>
+                    <p:commandButton value="Salvar" action="#{vendaControle.salvar()}" 
+                                     ajax="false" icon="ui-icon-disk"/>
+                    <p:commandButton value="Voltar" immediate="true" action="vendalistar" ajax="false" icon="ui-icon-circle-arrow-w"/>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

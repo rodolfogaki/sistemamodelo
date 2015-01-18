@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h:form>
+                <p:messages showDetail="false"/>
+                <p:panel header="Cadastro de Produtos">
+                    <p:panelGrid columns="2" >
+                        Nome:        <p:inputText value="#{produtoControle.produto.nome}" id="nome" size="40" 
+                                           required="true" requiredMessage="O nome é obrigatório!"/>
+                        Descrição:   <p:inputText value="#{produtoControle.produto.descricao}" id="descricao" size="70" 
+                                           required="true" requiredMessage="A descrição é obrigatória!"/>
+                        Grupo:       <p:autoComplete value="#{produtoControle.produto.grupoProduto}" id="grupo"  
+                                                    completeMethod="#{produtoControle.completaGrupo}"
+                                                    converter="#{produtoControle.converterGrupo}"
+                                                    var="g"
+                                                    itemLabel="#{g.nome}"
+                                                    itemValue="#{g}"
+                                                    forceSelection="true"
+                                                    required="true"
+                                                    requiredMessage="O grupo do produto é obrigatório!"/>
+                        Preço Venda: <p:inputText value="#{produtoControle.produto.precoVenda}" id="preco" size="25" 
+                                           required="true" requiredMessage="O preço é obrigatório!"/>
+                        Estoque:     <p:inputText value="#{produtoControle.produto.estoque}" id="estoque" size="25" 
+                                           required="true" requiredMessage="O estoque é obrigatório!"/>
+                        
+                    </p:panelGrid>
+                    <p:separator/>
+                    <p:commandButton value="Salvar" action="produtolistar" actionListener="#{produtoControle.salvar()}" ajax="false" icon="ui-icon-disk"/>
+                    <p:commandButton value="Voltar" immediate="true" action="produtolistar" ajax="false" icon="ui-icon-circle-arrow-w"/>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h:form>
+                <p:messages showDetail="false"/>
+                <p:panel header="Cadastro de Grupo de Produtos">
+                    <p:panelGrid columns="2">
+                        Código: <p:inputText value="#{grupoProdutoControle.grupoProduto.codigo}" id="codigo" size="15" 
+                                           required="true" requiredMessage="O código é obrigatório!"/>
+                        Nome:   <p:inputText value="#{grupoProdutoControle.grupoProduto.nome}" id="nome" size="50" 
+                                           required="true" requiredMessage="O nome é obrigatório!"/>
+                        Grupo Pai: <p:autoComplete value="#{grupoProdutoControle.grupoProduto.grupoProduto}" id="grupo"  
+                                                completeMethod="#{grupoProdutoControle.completaGrupo}"
+                                                converter="#{grupoProdutoControle.converterGrupo}"
+                                                var="g"
+                                                itemLabel="#{g.nome}"
+                                                itemValue="#{g}"
+                                                forceSelection="true"/>
+                    </p:panelGrid>
+                    <p:separator/>
+                    <p:commandButton value="Salvar" action="grupoprodutolistar" actionListener="#{grupoProdutoControle.salvar()}" ajax="false" icon="ui-icon-disk"/>
+                    <p:commandButton value="Voltar" immediate="true" action="grupoprodutolistar" ajax="false" icon="ui-icon-circle-arrow-w"/>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

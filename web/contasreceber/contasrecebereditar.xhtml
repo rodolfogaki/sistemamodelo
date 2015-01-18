@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h:form>
+                <p:messages showDetail="false"/>
+                <p:panel header="Cadastro de contas a receber">
+                    <p:panelGrid columns="2">                   
+                        Data Lançamento: <p:calendar value="#{contasReceberControle.contasReceber.dataLancamento}" id="dataLanc" pattern="dd/MM/yyyy" locale="pt_BR"
+                                          required="true" requiredMessage="A data é obrigatório!"/>
+                        Pessoa: <p:autoComplete value="#{contasReceberControle.contasReceber.pessoa}" id="pessoa" size="150" 
+                                                completeMethod="#{contasReceberControle.completaPessoa}"
+                                                converter="#{contasReceberControle.converterPessoa}"
+                                                var="e"
+                                                itemLabel="#{e.nome}"
+                                                itemValue="#{e}"
+                                                forceSelection="true"
+                                                required="true" requiredMessage="A pessoa é obrigatória!"/>
+                        Descrição: <p:inputText value="#{contasReceberControle.contasReceber.descricao}" id="descricao" size="100" />
+                        Vencimento: <p:calendar value="#{contasReceberControle.contasReceber.vencimento}" id="vencimento" pattern="dd/MM/yyyy" locale="pt_BR"
+                                          required="true" requiredMessage="A data de vencimento é obrigatório!"/>
+                        Data Pagamento: <p:calendar value="#{contasReceberControle.contasReceber.dataPagamento}" id="dataPagamento" pattern="dd/MM/yyyy" locale="pt_BR"/>
+                        Valor: <p:inputText value="#{contasReceberControle.contasReceber.valor}" id="valor" size="100" required="true" />
+                    </p:panelGrid>
+                    <p:separator/>
+                    <p:commandButton value="Salvar" action="contasreceberlistar" 
+                                     actionListener="#{contasReceberControle.salvar()}" ajax="false" icon="ui-icon-disk"/>
+                    <p:commandButton value="Voltar" immediate="true" action="contasreceberlistar" ajax="false" icon="ui-icon-circle-arrow-w"/>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

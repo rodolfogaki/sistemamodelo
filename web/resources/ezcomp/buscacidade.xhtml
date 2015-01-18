@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="cidade" required="true" />
+        <cc:attribute name="filtraEstado" default="true" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:panelGrid columns="2">
+            <h:outputText value="Estado " rendered="#{cc.attrs.filtraEstado}"/><p:autoComplete value="#{buscaCidadeControle.estado}"
+                                                            completeMethod="#{buscaCidadeControle.completaEstado(filtro)}"
+                                                            id="completeEstado"
+                                                            var="est"
+                                                            itemLabel="#{est.nome}"
+                                                            itemValue="#{est}"
+                                                            forceSelection="true"
+                                                            converter="#{buscaCidadeControle.converterEstado}"
+                                                            rendered="#{cc.attrs.filtraEstado}"> 
+            <p:ajax update="completeCidade" event="blur"/>
+            </p:autoComplete>
+            <h:outputText value="Cidade: "/><p:autoComplete value="#{cc.attrs.cidade}"
+                                                            completeMethod="#{buscaCidadeControle.completaCidade(filtro)}"
+                                                            id="completeCidade"
+                                                            var="cid"
+                                                            itemLabel="#{cid.nome}"
+                                                            itemValue="#{cid}"
+                                                            forceSelection="true"
+                                                            converter="#{buscaCidadeControle.converterCidade}"/> 
+        </p:panelGrid>
+    </cc:implementation>
+</html>

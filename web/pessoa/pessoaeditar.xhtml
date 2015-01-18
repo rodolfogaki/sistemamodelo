@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:fc="http://java.sun.com/jsf/composite/ezcomp">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h:form>
+                <p:panel header="Cadastro de Pessoa">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Razão social:" rendered="#{pessoaControle.validaTelaJuridica}"/> <p:inputText value="#{pessoaControle.pessoa.nome}" id="razao" size="50" rendered="#{pessoaControle.validaTelaJuridica}"
+                                                                                                                            required="true" requiredMessage="A razão social é obrigatório!"/>
+                        <p:outputLabel value="Nome:" rendered="#{pessoaControle.validaTelaFisica}"/> <p:inputText value="#{pessoaControle.pessoa.nome}" id="nome" size="50" rendered="#{pessoaControle.validaTelaFisica}"
+                                                                    required="true" requiredMessage="O nome é obrigatório!"/>
+                        <p:outputLabel value="Nome fantasia:" rendered="#{pessoaControle.validaTelaJuridica}"/> <p:inputText value="#{pessoaControle.pessoa.nomeFantasia}" id="nomeFantasia" size="50" rendered="#{pessoaControle.validaTelaJuridica}"
+                                                                                                                             required="true" requiredMessage="O nome fantasia é obrigatório!"/>
+                        <p:outputLabel value="CNPJ:" rendered="#{pessoaControle.validaTelaJuridica}"/> <p:inputText value="#{pessoaControle.pessoa.cnpj}" id="cnpj" size="40" rendered="#{pessoaControle.validaTelaJuridica}"
+                                                                                                                    required="true" requiredMessage="A cnpj é obrigatório!"/>
+                        <p:outputLabel value="IE:" rendered="#{pessoaControle.validaTelaJuridica}"/> <p:inputText value="#{pessoaControle.pessoa.ie}" id="ie" size="40" rendered="#{pessoaControle.validaTelaJuridica}"
+                                                                                                                  required="true" requiredMessage="A ie é obrigatório!"/>
+                        <p:outputLabel value="CPF:" rendered="#{pessoaControle.validaTelaFisica}"/> <p:inputText value="#{pessoaControle.pessoa.cpf}" id="cpf" size="40" rendered="#{pessoaControle.validaTelaFisica}"
+                                                                   required="true" requiredMessage="O CPF é obrigatório!"/>
+                        <p:outputLabel value="RG:" rendered="#{pessoaControle.validaTelaFisica}"/> <p:inputText value="#{pessoaControle.pessoa.rg}" id="rg" size="40" rendered="#{pessoaControle.validaTelaFisica}"
+                                                                  required="true" requiredMessage="O RG é obrigatório!"/>
+                        Endereço: <p:inputText value="#{pessoaControle.pessoa.endereco}" id="endereco" size="50"/>
+                        Numero: <p:inputText value="#{pessoaControle.pessoa.numero}" id="numero" size="20"/>
+                        Telefone: <p:inputText value="#{pessoaControle.pessoa.telefone}" id="telefone" size="20"/>
+                        Celular: <p:inputText value="#{pessoaControle.pessoa.celular}" id="celular" size="20"/>
+                    </p:panelGrid>
+                    <fc:buscacidade cidade="#{pessoaControle.pessoa.cidade}"/>
+                    <p:separator/>
+                    <p:commandButton value="Salvar" action="pessoalistar" 
+                                     actionListener="#{pessoaControle.salvar()}" ajax="false" icon="ui-icon-disk"/>
+                    <p:commandButton value="Voltar" immediate="true" action="pessoalistar" ajax="false" icon="ui-icon-circle-arrow-w"/>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
